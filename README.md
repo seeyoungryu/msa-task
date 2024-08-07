@@ -93,3 +93,9 @@
     
 - [ ]  **로컬과 서버의 환경을 분리**
     - 로컬에서는 [localhost:3306](http://localhost:3306) 으로 DB에 접근하고, 서버에 배포시엔 RDS 주소로 접근하게 구성하도록 환경을 분리 (환경은 `dev`, `prod` 프로필로 나뉨)
+
+
+---
+
+
+#### GET /auth/signIn?user_id={string} API가 DB 연결 없이 Gateway 서비스의 Filter를 통과하도록 구성하는 것이 목적이라면, Auth 서비스에서 간단히 JWT 토큰을 생성하여 반환하고, Gateway에서 이 토큰을 검증하는 방식으로 충분합니다. 이 경우 사용자 엔티티나 DB는 필요하지 않습니다.
