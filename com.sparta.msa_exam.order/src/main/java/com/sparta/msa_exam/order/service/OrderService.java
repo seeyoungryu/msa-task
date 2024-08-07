@@ -1,4 +1,4 @@
-package com.sparta.msa_exam.order;
+package com.sparta.msa_exam.order.service;
 
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
@@ -19,7 +19,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public OrderResponseDto addOrder(OrderRequestDto orderRequestDto) {
+    public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
         Order order = new Order();
         order.setName(orderRequestDto.getName());
         order.setProductIds(orderRequestDto.getProductIds());

@@ -1,8 +1,9 @@
 package com.sparta.msa_exam.order.controller;
 
-import com.sparta.msa_exam.order.OrderService;
+
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
+import com.sparta.msa_exam.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponseDto> addOrder(@RequestBody OrderRequestDto orderRequestDto) {
-        OrderResponseDto createdOrder = orderService.addOrder(orderRequestDto);
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        OrderResponseDto createdOrder = orderService.createOrder(orderRequestDto);
         return ResponseEntity.ok(createdOrder);
     }
 
