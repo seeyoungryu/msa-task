@@ -17,41 +17,39 @@ import java.util.Optional;
 public class OrderService {
 
     private final ProductClient productClient;
-
     private final OrderRepository orderRepository;
 
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
-        Order order = new Order();
-        order.setName(orderRequestDto.getName());
-        order.setProductIds(orderRequestDto.getProductIds());
+        Order order = Order.builder()
+                .name(orderRequestDto.getName())
+                .productIds(orderRequestDto.getProductIds())
+                .build();
         Order savedOrder = orderRepository.save(order);
-
-        OrderResponseDto orderResponseDto = new OrderResponseDto();
-        orderResponseDto.setOrderId(savedOrder.getOrderId());
-        orderResponseDto.setName(savedOrder.getName());
-        orderResponseDto.setProductIds(savedOrder.getProductIds());
-        return orderResponseDto;
+        return OrderResponseDto.builder()
+                .orderId(savedOrder.getOrderId())
+                .name(savedOrder.getName())
+                .productIds(savedOrder.getProductIds())
+                .build();
     }
 
     public Optional<OrderResponseDto> getOrder(Long orderId) {
-        return orderRepository.findById(orderId).map(order -> {
-            OrderResponseDto orderResponseDto = new OrderResponseDto();
-            orderResponseDto.setOrderId(order.getOrderId());
-            orderResponseDto.setName(order.getName());
-            orderResponseDto.setProductIds(order.getProductIds());
-            return orderResponseDto;
-        });
+        return orderRepository.findById(orderId)
+                .map(order -> OrderResponseDto.builder()
+                        .orderId(order.getOrderId())
+                        .name(order.getName())
+                        .productIds(order.getProductIds())
+                        .build());
     }
 
     public OrderResponseDto updateOrder(Long orderId, Long productId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Invalid order ID"));
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid order ID"));
         order.getProductIds().add(productId);
         Order updatedOrder = orderRepository.save(order);
-
-        OrderResponseDto orderResponseDto = new OrderResponseDto();
-        orderResponseDto.setOrderId(updatedOrder.getOrderId());
-        orderResponseDto.setName(updatedOrder.getName());
-        orderResponseDto.setProductIds(updatedOrder.getProductIds());
-        return orderResponseDto;
+        return OrderResponseDto.builder()
+                .orderId(updatedOrder.getOrderId())
+                .name(updatedOrder.getName())
+                .productIds(updatedOrder.getProductIds())
+                .build();
     }
 }

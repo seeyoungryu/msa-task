@@ -1,14 +1,16 @@
 package com.sparta.msa_exam.order.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
+@Builder
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
