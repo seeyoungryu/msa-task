@@ -1,23 +1,24 @@
 package com.sparta.msa_exam.order.service;
 
+import com.sparta.msa_exam.order.ProductClient;
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
 import com.sparta.msa_exam.order.entity.Order;
 import com.sparta.msa_exam.order.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+    private final ProductClient productClient;
 
-    @Autowired
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+    private final OrderRepository orderRepository;
 
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
         Order order = new Order();

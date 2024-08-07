@@ -4,7 +4,7 @@ package com.sparta.msa_exam.order.controller;
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
 import com.sparta.msa_exam.order.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +12,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
+@RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
-
-    @Autowired
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @PostMapping
     public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
