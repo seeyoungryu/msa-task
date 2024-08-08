@@ -61,3 +61,12 @@ public class ProductService {
 //    }
 
 
+/*
+
+스트림 사용 과정
+findAll(): ProductRepository의 findAll() 메서드를 호출하여 모든 Product 객체의 리스트를 가져옵니다.
+stream(): 리스트를 스트림으로 변환합니다. 스트림을 사용하면 각 요소를 순차적으로 처리할 수 있습니다.
+map(): 스트림의 각 Product 객체를 ProductResponseDTO 객체로 변환합니다. map() 메서드는 스트림의 각 요소에 대해 주어진 변환 함수를 적용하여 새로운 스트림을 반환합니다.
+collect(Collectors.toList()): 변환된 스트림을 다시 리스트로 수집합니다. 최종적으로 List<ProductResponseDTO> 타입의 결과를 얻습니다.
+
+ */
