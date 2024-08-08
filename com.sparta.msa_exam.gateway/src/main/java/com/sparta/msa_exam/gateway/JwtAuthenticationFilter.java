@@ -65,3 +65,35 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 
 
 }
+
+/*
+
+// 변경 전 코드
+validateToken 메서드 코드 수정 사유
+-
+SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
+Jws<Claims> claimsJws = Jwts.parser()
+        .verifyWith(key)
+        .build().parseSignedClaims(token);
+log.info("#####payload :: " + claimsJws.getPayload().toString());
+
+// 변경 후 코드
+SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+Jws<Claims> claimsJws = Jwts.parserBuilder()
+        .setSigningKey(key)
+        .build()
+        .parseClaimsJws(token);
+Claims claims = claimsJws.getBody();
+log.info("#####payload :: " + claims.toString());
+
+<코드 변경의 이유>
+-----------------------------------------------------------------
+Jwts.parser() 대신 Jwts.parserBuilder()를 사용하는 이유는
+JWT 라이브러리의 최신 버전에서 권장되는 방식이기 때문입니다.
+parserBuilder()는 다양한 설정을 적용할 수 있으며, 더 유연하게 사용 가능합니다.
+------------------------------------------------------------------
+SecretKey 생성: JWT 서명/검증에 사용하는 SecretKey를 생성할 때
+Decoders.BASE64.decode(secretKey)를 사용하는 이유는
+secretKey가 Base64로 인코딩된 문자열이기 때문입니다.
+이를 디코딩하여 SecretKey 객체를 생성합니다.
+ */
