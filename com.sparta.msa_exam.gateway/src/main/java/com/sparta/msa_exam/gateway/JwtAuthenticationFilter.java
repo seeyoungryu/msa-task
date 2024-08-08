@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter implements GlobalFilter {
             Jws<Claims> claimsJws = Jwts.parser()
                     .verifyWith(key)
                     .build().parseSignedClaims(token);
-            log.info("#####payload :: " + claimsJws.getPayload().toString());
+//            log.info("#####payload :: " + claimsJws.getPayload().toString());
             Claims claims = claimsJws.getBody();
             exchange.getRequest().mutate()
                     .header("X-User-Id", claims.get("user_id").toString())
