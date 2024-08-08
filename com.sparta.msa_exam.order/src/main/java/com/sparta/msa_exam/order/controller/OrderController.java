@@ -1,6 +1,5 @@
 package com.sparta.msa_exam.order.controller;
 
-
 import com.sparta.msa_exam.order.dto.OrderRequestDto;
 import com.sparta.msa_exam.order.dto.OrderResponseDto;
 import com.sparta.msa_exam.order.service.OrderService;
@@ -25,9 +24,11 @@ public class OrderController {
 
     @PutMapping("/{orderId}")
     public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable Long orderId, @RequestBody OrderRequestDto orderRequestDto) {
+        // OrderService의 updateOrder 메서드를 호출하여 주문을 업데이트합니다.
         OrderResponseDto updatedOrder = orderService.updateOrder(orderId, orderRequestDto.getProductIds().get(0));
         return ResponseEntity.ok(updatedOrder);
     }
+
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderResponseDto> getOrder(@PathVariable Long orderId) {
