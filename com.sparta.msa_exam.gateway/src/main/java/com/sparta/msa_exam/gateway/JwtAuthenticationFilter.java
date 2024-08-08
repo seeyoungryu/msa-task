@@ -25,7 +25,10 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        log.info("JwtAuthenticationFilter invoked for path: {}", exchange.getRequest().getURI().getPath());
+
         String path = exchange.getRequest().getURI().getPath();
+
         if (path.equals("/auth/signIn")) {
             return chain.filter(exchange);  // /signIn 경로는 필터를 적용하지 않음
         }
@@ -55,7 +58,7 @@ public class JwtAuthenticationFilter implements GlobalFilter {
             Jws<Claims> claimsJws = Jwts.parser()
                     .verifyWith(key)
                     .build().parseSignedClaims(token);
-//            log.info("#####payload :: " + claimsJws.getPayload().toString());
+            log.info("#####payload :: " + claimsJws.getPayload().toString());
             Claims claims = claimsJws.getBody();
             exchange.getRequest().mutate()
                     .header("X-User-Id", claims.get("user_id").toString())
@@ -67,6 +70,7 @@ public class JwtAuthenticationFilter implements GlobalFilter {
             return false;
         }
     }
+
 }
 
 
