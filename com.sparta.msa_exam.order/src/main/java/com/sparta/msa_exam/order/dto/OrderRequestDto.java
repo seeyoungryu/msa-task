@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+// @Builder
 @Getter
 @Setter
 public class OrderRequestDto {

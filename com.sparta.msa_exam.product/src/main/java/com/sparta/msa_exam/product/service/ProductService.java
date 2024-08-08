@@ -4,42 +4,60 @@ import com.sparta.msa_exam.product.dto.ProductRequestDTO;
 import com.sparta.msa_exam.product.dto.ProductResponseDTO;
 import com.sparta.msa_exam.product.entity.Product;
 import com.sparta.msa_exam.product.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
-    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
-        Product product = new Product();
-        product.setName(productRequestDTO.getName());
-        product.setSupplyPrice(productRequestDTO.getSupplyPrice());
+    // 빌더 패턴을 사용한 createProduct 메소드
+    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDto) {
+        Product product = Product.builder()
+                .name(productRequestDto.getName())
+                .supplyPrice(productRequestDto.getSupplyPrice())
+                .build();
+
         Product savedProduct = productRepository.save(product);
 
-        ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-        productResponseDTO.setProductId(savedProduct.getProductId());
-        productResponseDTO.setName(savedProduct.getName());
-        productResponseDTO.setSupplyPrice(savedProduct.getSupplyPrice());
-        return productResponseDTO;
+        return ProductResponseDTO.builder()
+                .productId(savedProduct.getProductId())
+                .name(savedProduct.getName())
+                .supplyPrice(savedProduct.getSupplyPrice())
+                .build();
     }
 
+
+    // 빌더 패턴을 사용한 getProducts 메소드
     public List<ProductResponseDTO> getProducts() {
-        return productRepository.findAll().stream().map(product -> {
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setProductId(product.getProductId());
-            productResponseDTO.setName(product.getName());
-            productResponseDTO.setSupplyPrice(product.getSupplyPrice());
-            return productResponseDTO;
-        }).collect(Collectors.toList());
+        return productRepository.findAll().stream()
+                .map(product -> ProductResponseDTO.builder()
+                        .productId(product.getProductId())
+                        .name(product.getName())
+                        .supplyPrice(product.getSupplyPrice())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
+
+
+//    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+//        Product product = new Product();
+//        product.setName(productRequestDTO.getName());
+//        product.setSupplyPrice(productRequestDTO.getSupplyPrice());
+//        Product savedProduct = productRepository.save(product);
+//
+//        ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+//        productResponseDTO.setProductId(savedProduct.getProductId());
+//        productResponseDTO.setName(savedProduct.getName());
+//        productResponseDTO.setSupplyPrice(savedProduct.getSupplyPrice());
+//        return productResponseDTO;
+//    }
+
+
