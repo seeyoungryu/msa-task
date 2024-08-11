@@ -134,8 +134,10 @@ public class JwtAuthenticationFilter implements GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
-        if (path.equals("/auth/signIn")) {
-            return chain.filter(exchange);  // /signIn 경로는 필터를 적용하지 않음
+
+        // /auth/signIn 경로와 /products 경로는 필터를 적용하지 않음
+        if (path.equals("/auth/signIn") || path.startsWith("/products")) {
+            return chain.filter(exchange);
         }
 
         String token = extractToken(exchange);
