@@ -147,22 +147,9 @@
 </details>
 
 <details>
-<summary>분산추적 구현</summary>
-- `주문 서비스` 와 `상품 서비스` 에 Zipkin 을 연동하고, 호출시 Zipkin 대시보드에 `Duration` 이 측정됩니다. (대시보드로 확인 가능 -> @Todo : 대시보드 이미지 추가 예정)
-</details>
-
-<details>
-<summary>캐싱 기능 구현</summary>
-- 주문 조회 API 의 결과를 캐싱 처리하여 **60초 동안**은 DB 에서 불러오는 데이터가 아닌 **메모리에 캐싱된 데이터**가 보여지도록 설정합니다.
-</details>
-
-<details>
 <summary>외부 요청 보호</summary>
 - Oauth2,JWT 기반으로 인증/인가를 구성하여 인가 없이 `상품 서비스`, `주문 서비스`를 호출할 때 **401** HTTP **Status Code를 응답하도록 설정합니다**
 </details>
-
-
-
 
 ---
 
@@ -177,6 +164,16 @@ GET /auth/signIn?user_id={string} API가 DB 연결 없이 Gateway 서비스의 F
 
 <details>
 <summary>예정 </summary>
+
+<details>
+<summary>분산추적 구현</summary>
+- `주문 서비스` 와 `상품 서비스` 에 Zipkin 을 연동하고, 호출시 Zipkin 대시보드에 `Duration` 이 측정됩니다. -> 현재 zipkin 대시보드에 spans3 내역이 나오지 않고 있음 
+</details>
+
+<details>
+<summary>캐싱 기능 구현</summary>
+- 주문 조회 API 의 결과를 캐싱 처리하여 **60초 동안**은 DB 에서 불러오는 데이터가 아닌 **메모리에 캐싱된 데이터**가 보여지도록 설정합니다.
+</details>
 
 * Advanced - 캐시 활용
 @ Todo : 내용정리 필요함 
