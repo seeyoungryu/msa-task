@@ -6,6 +6,9 @@
 
 전체 서비스 흐름의 실행 순서와 확인 방법입니다.
 
+<img width="1104" alt="스크린샷 2024-08-11 15 50 22" src="https://github.com/user-attachments/assets/2a236b54-3e44-42f7-8031-ba062730d37e">
+
+
 <details>
 <summary>1. Eureka Server 실행</summary>
 1. `server` 어플리케이션을 실행합니다.
@@ -44,9 +47,13 @@
 
 <details>
 <summary>1. 로그인 API 테스트</summary>
+<img width="855" alt="스크린샷 2024-08-11 15 48 58" src="https://github.com/user-attachments/assets/6ab2a324-5304-4725-81eb-c4349c74c0c8">
+
 1. 브라우저나 API 클라이언트를 사용하여 `http://localhost:19091/auth/signIn?user_id=test`에 GET 요청을 보냅니다.
 2. JWT 토큰이 반환되는지 확인합니다.
 </details>
+
+
 
 <details>
 <summary>2. 상품 목록 조회 API 테스트 (로드밸런싱 확인)</summary>
