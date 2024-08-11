@@ -47,7 +47,7 @@
 
 <details>
 <summary>1. 로그인 API 테스트</summary>
-<img width="855" alt="스크린샷 2024-08-11 15 48 58" src="https://github.com/user-attachments/assets/6ab2a324-5304-4725-81eb-c4349c74c0c8">
+<img width="700" alt="스크린샷 2024-08-11 15 48 58" src="https://github.com/user-attachments/assets/6ab2a324-5304-4725-81eb-c4349c74c0c8">
 
 1. 브라우저나 API 클라이언트를 사용하여 `http://localhost:19091/auth/signIn?user_id=test`에 GET 요청을 보냅니다.
 2. JWT 토큰이 반환되는지 확인합니다.
@@ -57,6 +57,10 @@
 
 <details>
 <summary>2. 상품 목록 조회 API 테스트 (로드밸런싱 확인)</summary>
+<img width="700" alt="스크린샷 2024-08-11 18 31 45" src="https://github.com/user-attachments/assets/fed932bf-ed24-4a2d-9505-51c240fd1f9b">
+<img width="700" alt="스크린샷 2024-08-11 18 31 51" src="https://github.com/user-attachments/assets/5800b9d3-ce9d-47ae-99a5-994e06b38d7f">
+
+
 1. 브라우저나 API 클라이언트를 사용하여 `http://localhost:19091/products`에 GET 요청을 보냅니다.
 2. 응답 헤더에 `Server-Port` 값이 `19093`과 `19094`로 번갈아 가며 설정되는지 확인합니다.
 </details>
@@ -64,13 +68,7 @@
 <details>
 <summary>3. 주문에 상품 추가 API 테스트</summary>
 1. 브라우저나 API 클라이언트를 사용하여 `http://localhost:19091/order`에 POST 요청을 보냅니다.
-   - 요청 바디 예시:
-     ```json
-     {
-       "name": "Test Order",
-       "product_ids": [1, 2]
-     }
-     ```
+
 2. 주문에 상품이 정상적으로 추가되는지 확인합니다.
 3. 상품이 존재하지 않을 경우 주문에 저장되지 않는지 확인합니다.
 </details>
@@ -163,18 +161,6 @@
 - Oauth2,JWT 기반으로 인증/인가를 구성하여 인가 없이 `상품 서비스`, `주문 서비스`를 호출할 때 **401** HTTP **Status Code를 응답하도록 설정합니다**
 </details>
 
-<details>
-<summary>Advanced - 캐시 활용</summary>
-@ Todo : 내용정리 필요함 
-1. [상품 추가 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21)  를 호출 할 경우 [상품 조회 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21) 의 응답 데이터 캐시가 갱신되도록 구현할 예정입니다. 
-    (~~MSA~~ **인메모리 저장소 및 캐싱 강의** 중 **Spring Boot 프로젝트에 캐싱 적용하기** 를 참고해서 구현예정입니다)
-2. 상품 추가 후 [상품 조회 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21) 호출 시 데이터가 변경 되는지 확인할 수 있습니다.
-</details>
-
-<details>
-<summary>로컬과 서버의 환경을 분리</summary>
-- 로컬에서는 [localhost:3306](http://localhost:3306) 으로 DB에 접근하고, 서버에 배포시엔 RDS 주소로 접근하게 구성하도록 환경을 분리합니다 (환경은 `dev`, `prod` 프로필로 나뉩니다).
-</details>
 
 
 
@@ -187,4 +173,17 @@ GET /auth/signIn?user_id={string} API가 DB 연결 없이 Gateway 서비스의 F
 
 ---
 
-# 진행 중 
+# 진행예정
+
+<details>
+<summary>예정 </summary>
+
+* Advanced - 캐시 활용
+@ Todo : 내용정리 필요함 
+1. [상품 추가 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21)  를 호출 할 경우 [상품 조회 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21) 의 응답 데이터 캐시가 갱신되도록 구현할 예정입니다. 
+    (~~MSA~~ **인메모리 저장소 및 캐싱 강의** 중 **Spring Boot 프로젝트에 캐싱 적용하기** 를 참고해서 구현예정입니다)
+2. 상품 추가 후 [상품 조회 API](https://www.notion.so/0c299a44a1db4301bd26ad2f5004564b?pvs=21) 호출 시 데이터가 변경 되는지 확인할 수 있습니다.
+
+* 로컬과 서버의 환경을 분리
+- 로컬에서는 [localhost:3306](http://localhost:3306) 으로 DB에 접근하고, 서버에 배포시엔 RDS 주소로 접근하게 구성하도록 환경을 분리합니다 (환경은 `dev`, `prod` 프로필로 나뉩니다).
+</details>
